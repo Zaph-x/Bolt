@@ -1,0 +1,34 @@
+{
+	"commands": [
+		{
+			"name": "help",
+			"description": "Sends the user a message with all available commands.",
+			"admin": false
+		},
+		{
+			"name": "ping",
+			"description": "Tells you the latency on the bot.",
+			"admin": false
+		},
+		{
+			"name": "print",
+			"description": "Prints a message to the channel.",
+			"admin": true
+		},
+		{
+			"name": "settings",
+			"description": "Change the settings of the current guild.",
+			"admin": true
+		},
+		{
+			"name": "info",
+			"description": "Shows various information.",
+			"admin": false
+		},
+		{
+			"name": "restart",
+			"description": "Restarts the bot.",
+			"admin": true
+		}
+	]
+}

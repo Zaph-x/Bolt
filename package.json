@@ -1,0 +1,15 @@
+{
+  "name": "jsbot",
+  "version": "1.0.0",
+  "description": "A JavaScript Discord bot running on a Raspberry Pi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zaphoo",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "nodemon": "^1.18.1"
+  }
+}
