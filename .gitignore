@@ -1,4 +1,5 @@
 ./node_modules
+./.vs
 config.json
 serversettings.json
 package-lock.json
