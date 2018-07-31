@@ -1,1 +1,22 @@
-{}
+{
+  "403264935745814560": {
+    "prefix": "$",
+    "join": true,
+    "leave": true,
+    "join_chan": "403856543285641216",
+    "leave_chan": "0",
+    "join_text": "Welcome <@> to CoffeeTest",
+    "leave_text": "<@> has left the guild!",
+    "muted_role": "455536763880996877"
+  },
+  "444165593919127583": {
+    "prefix": "$",
+    "join": false,
+    "leave": false,
+    "join_chan": "0",
+    "leave_chan": "0",
+    "join_text": "Welcome <@> to Programmers' Valley",
+    "leave_text": "<@> has left the guild!",
+    "muted_role": "0"
+  }
+}
