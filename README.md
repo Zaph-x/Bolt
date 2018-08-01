@@ -7,7 +7,7 @@ To accomplish this, an event and command handler had to be built into the bot, a
 
 # Contributing
 
-Feel free to contribute to the project! The `feature` branch is meant for contributions! If you have a command or an event you would like to add to the bot, this is where you add it.
+Feel free to contribute to the project! The `contribute` branch is meant for contributions! If you have a command or an event you would like to add to the bot, this is where you add it.
 
 ## Rules
 In order to contribute to the project, you must first make sure all of the bellow points are applicable to your code
