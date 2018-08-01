@@ -123,7 +123,7 @@ client.on("guildMemberRemove", member => {
 });
 
 client.on("message", async message => {
-
+	if (message.channel.type === "text") {
 	if (message.content.indexOf(settings[message.guild.id].prefix) === 0) {
 		const args = message.content.slice(settings[message.guild.id].prefix.length).trim().split(/ +/g);
 		const command = args.shift().toLocaleLowerCase();
@@ -175,6 +175,7 @@ client.on("message", async message => {
 			events[i].trigger(message);
 		}
 	}
+}
 });
 
 client.login(config.token);

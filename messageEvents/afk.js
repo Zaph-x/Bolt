@@ -17,7 +17,6 @@ module.exports.trigger = async (message) => {
 
     const mentions = message.mentions.users;
     if (users.users.includes(message.author.id)) {
-        console.log(1)
         _.pull(users.users, message.author.id)
         await saveUser(users);
         return message.channel.send(new Discord.RichEmbed()
@@ -28,12 +27,18 @@ module.exports.trigger = async (message) => {
     if (mentions.size > 0) {
         for (let member of mentions) {
             member.filter(obj => {
-                console.log(mentions.size);
                 if (users.users.includes(obj.id)) {
                     message.channel.send(new Discord.RichEmbed()
-                    .setColor(blue)
-                    .setTitle("A user is AFK")
-                    .setDescription(`User ${obj.username} was AFK when you mentioned them! They have been notified of your message in a DM!`));
+                        .setColor(blue)
+                        .setTitle("A user is AFK")
+                        .setDescription(`User ${obj.username} was AFK when you mentioned them! They have been notified of your message in a DM!`));
+                    obj.createDM().then(
+                        channel => channel
+                            .send(new Discord.RichEmbed()
+                                .setColor(blue)
+                                .setTitle("You were mentioned!")
+                                .setDescription(`While you were away, you were mentioned by ${message.author.username}`)
+                                .addField("Message was:", message.content)).catch(err => console.err(err)));
                 }
             })
         }

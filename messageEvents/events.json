@@ -1,8 +1,7 @@
 {
     "events": [
         {
-            "name": "afk",
-            "enabled": []
+            "name": "afk"
         }
     ]
 }
