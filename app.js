@@ -23,8 +23,19 @@ let commands = [];
 for (var i = 0; i < cmd.length; i++) {
 	commandArr[i] = require(`./commands/${cmd[i].name}.js`);
 	commands[i] = `${cmd[i].name}`;
-	console.log(`Loaded ${cmd[i].name} command!`);
+	console.log(`Command ${cmd[i].name} loaded!`);
 }
+
+// Load events ////////////////
+
+const eventDir = require("./messageEvents/events.json");
+const eventName = eventDir.events;
+let events = [];
+for (let i = 0; i < eventName.length; i++) {
+	events[i] = require(`./messageEvents/${eventName[i].name}.js`);
+	console.log(`Event ${eventName[i].name} loaded!`);
+}
+
 
 // Initialise colours /////////
 
@@ -37,6 +48,7 @@ let green = [120, 193, 82];
 client.on("ready", () => {
 	// Let console know we are ready and running
 	console.log(`Client has started with ${client.users.size} users, in ${client.guilds.size} guilds`);
+	client.user.setPresence({game: {name: "over you!", type: 3}});
 });
 
 client.on("guildCreate", async (guild) => {
@@ -158,11 +170,14 @@ client.on("message", async message => {
 			message.channel.send(":x: Invalid command!").then().catch();
 			return;
 		}	
+	} else {
+		for (let i = 0; i < events.length; i++) {
+			events[i].trigger(message);
+		}
 	}
 });
 
 client.login(config.token);
-
 function clean(text) {
 	if (typeof text === "string")
 		return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
