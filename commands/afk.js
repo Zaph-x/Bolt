@@ -1,5 +1,4 @@
 const client = require("../app");
-const afkList = require("../messageEvents/files/afk.json");
 const fs = require("fs");
 const _ = require("lodash");
 const Discord = require("discord.js");
