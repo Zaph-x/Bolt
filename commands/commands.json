@@ -29,6 +29,11 @@
 			"name": "restart",
 			"description": "Restarts the bot.",
 			"admin": true
+		},
+		{
+			"name": "afk",
+			"description": "Allows users to go AFK",
+			"admin": false
 		}
 	]
 }

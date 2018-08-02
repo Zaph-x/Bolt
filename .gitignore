@@ -1,5 +1,5 @@
-./node_modules
 ./.vs
+./.vscode
 config.json
 serversettings.json
 package-lock.json
