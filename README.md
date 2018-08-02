@@ -7,7 +7,7 @@ To accomplish this, an event and command handler had to be built into the bot, a
 
 # Contributing
 
-Feel free to contribute to the project! The `contribute` branch is meant for contributions! If you have a command or an event you would like to add to the bot, this is where you add it.
+Feel free to contribute to the project! The `feature` branch is meant for contributions! If you have a command or an event you would like to add to the bot, this is where you add it.
 
 ## Rules
 In order to contribute to the project, you must first make sure all of the bellow points are applicable to your code
@@ -16,6 +16,19 @@ In order to contribute to the project, you must first make sure all of the bello
 * camelCaseCode.
 * No tokens are available in the code.
 * Messages sent by the bot must be PG. This is a moderation bot after all
+
+# The config
+
+Make sure to create a `condif.json` file in the bot directory. This is where you will keep your token and test guilds. The config file should be structured like this:
+```json
+{
+    "token": "Your-token-here",
+    "prefix": "$",
+    "ownerID": "Your ID here",
+    "testGuilds": ["Guild-ID","Another-Guild-ID"]
+}
+```
+The prefix is what the bot will default to, when joining a new guild, but this can be changed by an administrator of the guild.
 
 # Adding your own commands
 
@@ -54,3 +67,4 @@ function name(param) {
     // Code
 }
 ```
+
