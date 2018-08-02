@@ -17,6 +17,19 @@ In order to contribute to the project, you must first make sure all of the bello
 * No tokens are available in the code.
 * Messages sent by the bot must be PG. This is a moderation bot after all
 
+# The config
+
+Make sure to create a `condif.json` file in the bot directory. This is where you will keep your token and test guilds. The config file should be structured like this:
+```json
+{
+    "token": "Your-token-here",
+    "prefix": "$",
+    "ownerID": "Your ID here",
+    "testGuilds": ["Guild-ID","Another-Guild-ID"]
+}
+```
+The prefix is what the bot will default to, when joining a new guild, but this can be changed by an administrator of the guild.
+
 # Adding your own commands
 
 In order to add your own commands to the bot, you must create a new javascript file in the `commands` folder, and name it what you want your command to be. This file needs to be structured like this:
@@ -54,3 +67,4 @@ function name(param) {
     // Code
 }
 ```
+

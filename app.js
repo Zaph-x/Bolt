@@ -136,7 +136,7 @@ client.on("message", async message => {
 
 
 		let permissions = ["MANAGE_MESSAGES", "MANAGE_ROLES", "ADD_REACTIONS"];
-		if (!message.guild.me.hasPermission(permissions) && !config.testguilds.includes(message.guild.id)) {
+		if (!message.guild.me.hasPermission(permissions) && !config.testGuilds.includes(message.guild.id)) {
 			message.channel.send(new discord.RichEmbed().setColor(red).setAuthor(client.user.username, client.user.displayAvatarURL).setTimestamp().addField("I am missing some permissions!", `I need the following permissions to function correctly \`${permissions[0]}\`, \`${permissions[1]}\` and \`${permissions[2]}\`!`));
 		}
 
