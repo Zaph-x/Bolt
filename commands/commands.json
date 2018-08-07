@@ -32,11 +32,12 @@
 		},
 		{
 			"name": "afk",
-			"description": "Allows users to go AFK",
+			"description": "Allows users to go AFK.",
 			"admin": false
-		},{
+		},
+		{
 			"name": "eval",
-			"description": "Allows the user to run code realtime. Bot owner only",
+			"description": "Allows the user to run code realtime. Bot owner only.",
 			"admin": true
 		}
 	]

@@ -28,7 +28,10 @@ Make sure to create a `condif.json` file in the bot directory. This is where you
     "testGuilds": ["Guild-ID","Another-Guild-ID"]
 }
 ```
+
 The prefix is what the bot will default to, when joining a new guild, but this can be changed by an administrator of the guild.
+
+To make this easier, rename the `config_example.json` to `config.json` and fill in each field as instructed. 
 
 # Adding your own commands
 

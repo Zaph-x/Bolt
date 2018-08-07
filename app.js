@@ -42,13 +42,16 @@ for (let i = 0; i < eventName.length; i++) {
 let red = [242, 56, 79];
 let green = [120, 193, 82];
 
-///////////////////////////////
+// Set Constants //////////////
+
+let deleteEmoji;
 
 
 client.on("ready", () => {
 	// Let console know we are ready and running
 	console.log(`Client has started with ${client.users.size} users, in ${client.guilds.size} guilds`);
 	client.user.setPresence({ game: { name: "over you!", type: 3 } });
+	deleteEmoji = client.guilds.find("id", "403264935745814560").emojis.find("name", "delete");
 });
 
 client.on("guildCreate", async (guild) => {
@@ -106,18 +109,29 @@ client.on("guildCreate", async (guild) => {
 	}
 });
 
-client.on("guildMemberAdd", (member) => {
+client.on("guildMemberAdd", async (member) => {
 	if (settings[member.guild.id].join) {
 		if (settings[member.guild.id].join_chan !== "0") {
-			member.guild.channels.find("id", settings[member.guild.id].join_chan).send(settings[member.guild.id].join_text.replace(/<@>/, `<@${member.id}>`)).then().catch(console.error);
+			member.guild.channels.get(settings[member.guild.id].join_chan).send(settings[member.guild.id].join_text.replace(/<@>/, `<@${member.id}>`)).then().catch(console.error);
 		}
 	}
 });
 
-client.on("guildMemberRemove", member => {
+client.on("guildMemberRemove", async member => {
 	if (settings[member.guild.id].leave) {
 		if (settings[member.guild.id].leave_chan !== "0") {
-			member.guild.channels.find("id", settings[member.guild.id].leave_chan).send(settings[member.guild.id].leave_text.replace(/<@>/, `<@${member.id}>`)).then().catch(console.error);
+			member.guild.channels.get(settings[member.guild.id].leave_chan).send(settings[member.guild.id].leave_text.replace(/<@>/, `<@${member.id}>`)).then().catch(console.error);
+		}
+	}
+});
+
+client.on("messageReactionAdd", async (messageReaction, user) => {
+	let message = messageReaction.message;
+	if (message.author.id === client.user.id) {
+		if (!user.bot) {
+			if (messageReaction.emoji === deleteEmoji) {
+				message.delete();
+			}
 		}
 	}
 });
@@ -132,7 +146,11 @@ client.on("message", async message => {
 			}
 			let permissions = ["MANAGE_MESSAGES", "MANAGE_ROLES", "ADD_REACTIONS"];
 			if (!message.guild.me.hasPermission(permissions) && !config.testGuilds.includes(message.guild.id)) {
-				message.channel.send(new discord.RichEmbed().setColor(red).setAuthor(client.user.username, client.user.displayAvatarURL).setTimestamp().addField("I am missing some permissions!", `I need the following permissions to function correctly \`${permissions[0]}\`, \`${permissions[1]}\` and \`${permissions[2]}\`!`));
+				message.channel.send(new discord.RichEmbed()
+					.setColor(red)
+					.setAuthor(client.user.username, client.user.displayAvatarURL)
+					.setTimestamp()
+					.addField("I am missing some permissions!", `I need the following permissions to function correctly \`${permissions[0]}\`, \`${permissions[1]}\` and \`${permissions[2]}\`!`));
 			}
 			for (var i = 0; i < commands.length; i++) {
 				if (command === commands[i]) {
@@ -141,7 +159,7 @@ client.on("message", async message => {
 				}
 			}
 			didYouMean(commands, command, message);
-			
+
 		} else {
 			for (let i = 0; i < events.length; i++) {
 				events[i].trigger(message);
@@ -173,13 +191,19 @@ function didYouMean(arr, search, message) {
 				for (let j = 0; j < arr[i].length; j++) {
 					if (search.split("")[j] === arr[i][j]) {
 						score[i]++;
-					} 
+					}
 				}
 			}
-			return message.channel.send(new discord.RichEmbed().setTitle(":x: Invalid command!").addField("Did you mean", `\`${settings[message.guild.id].prefix}${str[score.indexOf(Math.max(...score))]}\``)).catch(err => console.log(err));
+			return message.channel.send(new discord.RichEmbed()
+				.setTitle(":x: Invalid command!")
+				.addField("Did you mean", `\`${settings[message.guild.id].prefix}${str[score.indexOf(Math.max(...score))]}\``))
+				.catch(err => console.log(err));
 
 		} else {
-			return message.channel.send(new discord.RichEmbed().setTitle(":x: Invalid command!").addField("Did you mean", `\`${settings[message.guild.id].prefix}${str[0]}\``)).catch(err => console.log(err));
+			return message.channel.send(new discord.RichEmbed()
+				.setTitle(":x: Invalid command!")
+				.addField("Did you mean", `\`${settings[message.guild.id].prefix}${str[0]}\``))
+				.catch(err => console.log(err));
 		}
 	}
 }

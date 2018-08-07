@@ -15,15 +15,15 @@ module.exports.run = async message => {
 		let name = client.user.username;
 		let image = client.user.displayAvatarURL;
 		let succEmbed = new Discord.RichEmbed()
+			.setTitle("<:settings:469471662715437056> Guild settings")
 			.setColor(green)
 			.addField("The settings were saved!", "The settings were successfully stored in the configuration file!", true)
 			.setTimestamp()
-			.setAuthor(name, image);
 
 		if (args.length === 1) {
 			let settEmbed = new Discord.RichEmbed()
 				.setColor(red)
-				.setAuthor(name, image)
+				.setTitle("<:settings:469471662715437056> Guild settings")
 				.setDescription("You did not provide a setting to change or did not change a setting! \nHere are your options:")
 				.addField("prefix", "This will set the prefix of the bot!")
 				.addField("greeting", "This setting determines whether or not the bot will greet new users!")
@@ -51,9 +51,9 @@ module.exports.run = async message => {
 						if (args[2] === undefined) {
 							message.channel.send(new Discord.RichEmbed()
 								.setColor(red)
+								.setTitle("<:settings:469471662715437056> Guild settings")
 								.addField("Oops! Something went wrong...", "The value entered returned as undefined...", true)
-								.setTimestamp()
-								.setAuthor(name, image)).then().catch(console.error);
+								.setTimestamp()).then().catch(console.error);
 						}
 						let chan = message.guild.channels.find("id", args[2]);
 						if (chan) {
@@ -67,7 +67,7 @@ module.exports.run = async message => {
 								.setColor(red)
 								.addField("That's not right..?", "The ID you entered is not a channel in this guild...", true)
 								.setTimestamp()
-								.setAuthor(name, image).then();
+								.setTitle("<:settings:469471662715437056> Guild settings");
 							message.channel.send(undefEmbed).then().catch(console.error);
 						}
 					} else if (message.guild.channels.find("name", args[2])) {
@@ -78,10 +78,10 @@ module.exports.run = async message => {
 						message.channel.send(succEmbed);
 					} else {
 						let undefEmbed = new Discord.RichEmbed()
+							.setTitle("<:settings:469471662715437056> Guild settings")
 							.setColor(red)
 							.addField("Wait a minute...", "That channel is not part of this server...", true)
 							.setTimestamp()
-							.setAuthor(name, image);
 						message.channel.send(undefEmbed).then().catch(console.error);
 					}
 					break;
@@ -96,10 +96,10 @@ module.exports.run = async message => {
 						if (args[2] === undefined) {
 
 							let undefEmbed = new Discord.RichEmbed()
+								.setTitle("<:settings:469471662715437056> Guild settings")
 								.setColor(red)
 								.addField("Oops! Something went wrong...", "The value entered returned as undefined...", true)
-								.setTimestamp()
-								.setAuthor(name, image);
+								.setTimestamp();
 							message.channel.send(undefEmbed).then().catch(console.error);
 						}
 						let chan = message.guild.channels.find("id", args[2]);
@@ -111,10 +111,10 @@ module.exports.run = async message => {
 							message.channel.send(succEmbed).then().catch(console.error);
 						} else {
 							let undefEmbed = new Discord.RichEmbed()
+								.setTitle("<:settings:469471662715437056> Guild settings")
 								.setColor(red)
 								.addField("That's not right..?", "The ID you entered is not a channel in this guild...", true)
-								.setTimestamp()
-								.setAuthor(name, image);
+								.setTimestamp();
 							message.channel.send(undefEmbed).then().catch(console.error);
 						}
 					} else if (message.guild.channels.find("name", args[2])) {
@@ -125,10 +125,10 @@ module.exports.run = async message => {
 						message.channel.send(succEmbed).then().catch(console.error);
 					} else {
 						let undefEmbed = new Discord.RichEmbed()
+							.setTitle("<:settings:469471662715437056> Guild settings")
 							.setColor(red)
 							.addField("Wait a minute...", "That channel is not part of this server...", true)
-							.setTimestamp()
-							.setAuthor(name, image);
+							.setTimestamp();
 						message.channel.send(undefEmbed).then().catch(console.error);
 					}
 					break;
@@ -156,12 +156,20 @@ module.exports.run = async message => {
 							message.channel.send(succEmbed).then().catch(console.error);
 						}
 					} else {
-						return message.channel.send(new Discord.RichEmbed().setTimestamp().setAuthor(name, image).setColor(red).addField("How did we end up here?!", `The value ${args[2]} can not be applied to this setting.\nPlease user either \`yes\`, \`no\`, \`true\` or \`false\``)).then().catch(console.error);
+						return message.channel.send(new Discord.RichEmbed()
+							.setTimestamp()
+							.setTitle("<:settings:469471662715437056> Guild settings")
+							.setColor(red)
+							.addField("How did we end up here?!", `The value ${args[2]} can not be applied to this setting.\nPlease user either \`yes\`, \`no\`, \`true\` or \`false\``)).then().catch(console.error);
 					}
 					break;
 				case "farewell":
 					if (args.length !== 3) return;
-					let currentSetting = new Discord.RichEmbed().setColor(red).setAuthor(name, image).setTimestamp().addField("Aww man...", `That setting is already set to ${args[2]}`).then().catch(console.error);
+					let currentSetting = new Discord.RichEmbed()
+						.setColor(red)
+						.setTitle("<:settings:469471662715437056> Guild settings")
+						.setTimestamp()
+						.addField("Aww man...", `That setting is already set to ${args[2]}`);
 					if (args[2] === "toggle") {
 						settings[message.guild.id].leave = !settings[message.guild.id].leave;
 						saveSettings(settings);
@@ -183,7 +191,11 @@ module.exports.run = async message => {
 							message.channel.send(succEmbed).then().catch(console.error);
 						}
 					} else {
-						return message.channel.send(new Discord.RichEmbed().setTimestamp().setAuthor(name, image).setColor(red).addField("How did we end up here?!", `The value ${args[2]} can not be applied to this setting.\nPlease user either \`yes\`, \`no\`, \`true\` or \`false\``)).then().catch(console.error);
+						return message.channel.send(new Discord.RichEmbed()
+							.setTimestamp()
+							.setTitle("<:settings:469471662715437056> Guild settings")
+							.setColor(red)
+							.addField("How did we end up here?!", `The value ${args[2]} can not be applied to this setting.\nPlease user either \`yes\`, \`no\`, \`true\` or \`false\``)).then().catch(console.error);
 					}
 					break;
 				case "log-channel":
@@ -199,7 +211,7 @@ module.exports.run = async message => {
 								.setColor(red)
 								.addField("Oops! Something went wrong...", "The value entered returned as undefined...", true)
 								.setTimestamp()
-								.setAuthor(name, image));
+								.setTitle("<:settings:469471662715437056> Guild settings"));
 						}
 						let chan = message.guild.channels.find("id", args[2]);
 						if (chan) {
@@ -213,7 +225,7 @@ module.exports.run = async message => {
 								.setColor(red)
 								.addField("Eh?", "The ID you entered is not a channel in this guild...", true)
 								.setTimestamp()
-								.setAuthor(name, image);
+								.setTitle("<:settings:469471662715437056> Guild settings");
 							message.channel.send(undefEmbed).then().catch(console.error);
 						}
 					} else if (message.guild.channels.find("name", args[2])) {
@@ -227,7 +239,7 @@ module.exports.run = async message => {
 							.setColor(red)
 							.addField("Nope...", "That channel is not part of this server...", true)
 							.setTimestamp()
-							.setAuthor(name, image);
+							.setTitle("<:settings:469471662715437056> Guild settings");
 						message.channel.send(undefEmbed).then().catch(console.error);
 					}
 					break;
@@ -261,7 +273,11 @@ module.exports.run = async message => {
 					message.channel.send(succEmbed).then().catch(console.error);
 					break;
 				default:
-					return message.channel.send(new Discord.RichEmbed().setColor(red).setAuthor(name, image).setTimestamp().addField("Oh noes!", `The property ${args[1]} is not a setting!`)).then().catch(console.error);
+					return message.channel.send(new Discord.RichEmbed()
+						.setColor(red)
+						.setTitle("<:settings:469471662715437056> Guild settings")
+						.setTimestamp()
+						.addField("Oh noes!", `The property ${args[1]} is not a setting!`)).then().catch(console.error);
 			}
 		}
 	}
@@ -282,7 +298,7 @@ function checkAndSendOption(message, option) {
 	if (map.get(option) !== undefined) {
 		let goodSett = new Discord.RichEmbed()
 			.setColor(green)
-			.setAuthor(client.user.username, client.user.avatarURL)
+			.setTitle("<:settings:469471662715437056> Guild settings")
 			.setTimestamp()
 			.addField(`${option} has the following value:`, `\`${map.get(option)}\``);
 		return message.channel.send(goodSett).then().catch(console.error);
@@ -290,7 +306,7 @@ function checkAndSendOption(message, option) {
 		return message.channel.send(new Discord.RichEmbed()
 			.setColor(red)
 			.setTimestamp()
-			.setAuthor(client.user.username, client.user.avatarURL)
+			.setTitle("<:settings:469471662715437056> Guild settings")
 			.addField(`${option} did not have a value...`, "Make sure you have typed the name correct!")
 		).then().catch(console.error);
 	}
@@ -303,7 +319,7 @@ function saveSettings(dataset) {
 				.setColor(red)
 				.addField("Oops! Something went wrong...", "An error occoured while trying to modify the configuration file...", true)
 				.setTimestamp()
-				.setAuthor(client.user.username, client.user.avatarURL);
+				.setTitle("<:settings:469471662715437056> Guild settings");
 			message.channel.send(undefEmbed).then().catch(console.error);
 			console.log(err);
 		}

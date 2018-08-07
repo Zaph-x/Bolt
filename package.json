@@ -11,6 +11,6 @@
   "dependencies": {
     "discord.js": "^11.3.2",
     "lodash": "^4.17.10",
-    "nodemon": "^1.18.1"
+    "nodemon": "^1.18.3"
   }
 }
